@@ -1,19 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0001FC"
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/latech"
+        android:layout_width="177dp"
+        android:layout_height="47dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="160dp"
+        android:fontFamily="@font/pt_mono"
+        android:gravity="center_horizontal|top"
+        android:letterSpacing="5"
+        android:text="@string/latech"
+        android:textAppearance="@style/latech"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tech_market"
+        android:layout_width="148dp"
+        android:layout_height="14dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:fontFamily="@font/sfpro"
+        android:gravity="center_horizontal|top"
+        android:text="@string/tech_market"
+        android:textAppearance="@style/tech_market"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/latech" />
+
+    <ImageView
+        android:id="@+id/vector"
+        android:layout_width="148.63dp"
+        android:layout_height="83.03dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/ic_vector"
+        android:translationZ="90dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ellipse_8"
+        app:layout_constraintEnd_toEndOf="@+id/ellipse_8"
+        app:layout_constraintStart_toStartOf="@+id/ellipse_8"
+        app:layout_constraintTop_toTopOf="@+id/ellipse_8" />
+
+    <ImageView
+        android:id="@+id/ellipse_8"
+        android:layout_width="216dp"
+        android:layout_height="216dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/ic_ellipse8"
+        android:elevation="20dp"
+        android:translationZ="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tech_market" />
+
+    <TextView
+        android:id="@+id/let_s_start"
+        android:layout_width="90dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:fontFamily="@font/SFpro"
+        android:gravity="center_horizontal|top"
+        android:text="@string/let_s_start"
+        android:textAppearance="@style/let_s_start"
+        android:translationZ="90dp"
+        app:layout_constraintBottom_toBottomOf="@+id/background"
+        app:layout_constraintEnd_toEndOf="@+id/background"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/background" />
+
+    <Button
+        android:onClick="goToConnexion"
+        android:id="@+id/background"
+        android:layout_width="311dp"
+        android:layout_height="53dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/round_edge"
+        android:elevation="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ellipse_8" />
+
+    <TextView
+        android:id="@+id/skip_for_no"
+        android:layout_width="110dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="72dp"
+        android:gravity="center_horizontal|top"
+        android:text="@string/skip_for_no"
+        android:textAppearance="@style/skip_for_no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/let_s_start" />
 </androidx.constraintlayout.widget.ConstraintLayout>

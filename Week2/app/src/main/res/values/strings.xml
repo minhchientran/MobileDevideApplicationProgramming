@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Week2</string>
+    <string name="latech">LATECH</string>
+    <string name="tech_market">TECH MARKET</string>
+    <string name="let_s_start">Let's start</string>
+    <string name="skip_for_no">Skip for now</string>
 </resources>
