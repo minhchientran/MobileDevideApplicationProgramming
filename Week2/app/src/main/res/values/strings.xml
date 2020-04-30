@@ -9,4 +9,10 @@
     <string name="connect_google">Connect with Google</string>
     <string name="connect_facebook">Connect with Facebook</string>
     <string name="already_hav">Already have an account ? <b>Login</b></string>
+    <string name="do_not_hav">Don\'t have an account? <b>Sign-up</b></string>
+    <string name="full_name">Full name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="validate">Validate</string>
 </resources>
