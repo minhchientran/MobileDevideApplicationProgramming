@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0001FC"
+    tools:context=".Connecxion">
+
+    <TextView
+        android:id="@+id/connexion"
+        android:layout_width="128dp"
+        android:layout_height="29dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="68dp"
+        android:gravity="center_horizontal|top"
+        android:text="@string/connexion"
+        android:textAppearance="@style/connexion"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonCreateAccount"
+        android:layout_width="311dp"
+        android:layout_height="53dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/round_edge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connexion" />
+
+    <TextView
+        android:id="@+id/createAccount"
+        android:layout_width="200dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal|top"
+        android:text="@string/create_an_a"
+        android:textAppearance="@style/let_s_start"
+        android:textStyle="bold"
+        android:translationZ="90dp"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonCreateAccount"
+        app:layout_constraintEnd_toEndOf="@+id/buttonCreateAccount"
+        app:layout_constraintStart_toStartOf="@+id/buttonCreateAccount"
+        app:layout_constraintTop_toTopOf="@+id/buttonCreateAccount" />
+
+    <Button
+        android:id="@+id/buttonGoogle"
+        android:layout_width="311dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/round_edge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCreateAccount" />
+
+    <ImageView
+        android:id="@+id/googleIcon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="33dp"
+        android:background="@drawable/ic_google_icon"
+        android:elevation="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonGoogle"
+        app:layout_constraintStart_toStartOf="@+id/buttonGoogle"
+        app:layout_constraintTop_toTopOf="@+id/buttonGoogle" />
+
+    <TextView
+        android:layout_width="185dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="24.5dp"
+        android:elevation="40dp"
+        style="@style/connect_google"
+        android:text="@string/connect_google"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonGoogle"
+        app:layout_constraintStart_toEndOf="@+id/googleIcon"
+        app:layout_constraintTop_toTopOf="@+id/buttonGoogle"
+        app:layout_constraintVertical_bias="0.437" />
+
+    <Button
+        android:id="@+id/buttonFacebook"
+        android:layout_width="311dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/round_edge_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGoogle" />
+
+    <ImageView
+        android:id="@+id/facebookIcon"
+        android:layout_width="13dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="33dp"
+        android:background="@drawable/ic_facebook_icon"
+        android:elevation="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonFacebook"
+        app:layout_constraintStart_toStartOf="@+id/buttonFacebook"
+        app:layout_constraintTop_toTopOf="@+id/buttonFacebook" />
+
+    <TextView
+        style="@style/connect_facebook"
+        android:layout_width="200dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="24.5dp"
+        android:elevation="40dp"
+        android:text="@string/connect_facebook"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonFacebook"
+        app:layout_constraintStart_toEndOf="@+id/facebookIcon"
+        app:layout_constraintTop_toTopOf="@+id/buttonFacebook"
+        app:layout_constraintVertical_bias="0.437" />
+
+    <TextView
+        android:id="@+id/already_hav"
+        style="@style/already_hav"
+        android:layout_width="276dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/already_hav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonFacebook" />
+
+    <TextView
+        android:id="@+id/skip_for_no2"
+        android:layout_width="110dp"
+        android:layout_height="21dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="103dp"
+        android:gravity="center_horizontal|top"
+        android:text="@string/skip_for_no"
+        android:textAppearance="@style/skip_for_no"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/already_hav" />
+</androidx.constraintlayout.widget.ConstraintLayout>

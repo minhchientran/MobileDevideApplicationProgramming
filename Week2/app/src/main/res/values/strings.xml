@@ -2,6 +2,11 @@
     <string name="app_name">Week2</string>
     <string name="latech">LATECH</string>
     <string name="tech_market">TECH MARKET</string>
-    <string name="let_s_start">Let's start</string>
+    <string name="let_s_start">Let\'s start</string>
     <string name="skip_for_no">Skip for now</string>
+    <string name="connexion">Connexion</string>
+    <string name="create_an_a">Create an account</string>
+    <string name="connect_google">Connect with Google</string>
+    <string name="connect_facebook">Connect with Facebook</string>
+    <string name="already_hav">Already have an account ? <b>Login</b></string>
 </resources>

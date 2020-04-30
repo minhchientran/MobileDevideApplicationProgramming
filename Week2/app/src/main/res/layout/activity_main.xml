@@ -9,14 +9,13 @@
 
     <TextView
         android:id="@+id/latech"
-        android:layout_width="177dp"
+        android:layout_width="200dp"
         android:layout_height="47dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="160dp"
         android:fontFamily="@font/pt_mono"
         android:gravity="center_horizontal|top"
-        android:letterSpacing="5"
         android:text="@string/latech"
         android:textAppearance="@style/latech"
         android:textStyle="bold"
@@ -27,11 +26,11 @@
 
     <TextView
         android:id="@+id/tech_market"
-        android:layout_width="148dp"
+        android:layout_width="200dp"
         android:layout_height="14dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:fontFamily="@font/sfpro"
+        android:fontFamily="@font/sf_pro"
         android:gravity="center_horizontal|top"
         android:text="@string/tech_market"
         android:textAppearance="@style/tech_market"
@@ -77,19 +76,18 @@
         android:layout_height="21dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:fontFamily="@font/SFpro"
+        android:fontFamily="@font/sf_pro"
         android:gravity="center_horizontal|top"
         android:text="@string/let_s_start"
         android:textAppearance="@style/let_s_start"
         android:translationZ="90dp"
-        app:layout_constraintBottom_toBottomOf="@+id/background"
-        app:layout_constraintEnd_toEndOf="@+id/background"
-        app:layout_constraintStart_toStartOf="@+id/background"
-        app:layout_constraintTop_toTopOf="@+id/background" />
+        app:layout_constraintBottom_toBottomOf="@+id/buttonStart"
+        app:layout_constraintEnd_toEndOf="@+id/buttonStart"
+        app:layout_constraintStart_toStartOf="@+id/buttonStart"
+        app:layout_constraintTop_toTopOf="@+id/buttonStart" />
 
     <Button
-        android:onClick="goToConnexion"
-        android:id="@+id/background"
+        android:id="@+id/buttonStart"
         android:layout_width="311dp"
         android:layout_height="53dp"
         android:layout_alignParentLeft="true"
