@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+    <ImageView
+        android:id="@+id/grid_backdrop"
+        android:layout_width="180dp"
+        android:layout_height="100dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/grid_title"
+        android:layout_width="180dp"
+        android:layout_height="25dp"
+        android:background="#FFFFFF"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/grid_backdrop"
+        app:layout_constraintTop_toBottomOf="@+id/grid_backdrop" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
