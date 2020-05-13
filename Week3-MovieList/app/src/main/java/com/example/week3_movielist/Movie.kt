@@ -7,17 +7,21 @@ data class ListMovie (
     val movie: ArrayList<Movie>
     ) {
     class Movie (
+        val id: Int,
+
         val popularity: Float,
         val vote_count: Int,
-        val poster_path: String,
-        val id: Int,
-        val adult: Boolean,
-        val backdrop_path: String,
-        val original_language: String,
-        val original_title: String,
-        val genre_ids: List<Int>,
-        val title: String,
         val vote_average: Float,
+
+        val poster_path: String,
+        val backdrop_path: String,
+
+        val title: String,
+        val original_title: String,
+
+        val adult: Boolean,
+        val original_language: String,
+        val genre_ids: List<Int>,
         val overview: String,
         val release_date: String
     )

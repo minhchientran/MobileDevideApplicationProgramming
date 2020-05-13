@@ -15,8 +15,10 @@ class MovieAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return if (viewType == 0)
-            ListMovieViewHolder(LayoutInflater.from(ctx).inflate(R.layout.list_viewholder, parent, false))
-        else GridMovieViewHolder(LayoutInflater.from(ctx).inflate(R.layout.grid_viewholder, parent, false))
+            ListMovieViewHolder(LayoutInflater.from(ctx)
+                .inflate(R.layout.list_viewholder, parent, false))
+        else GridMovieViewHolder(LayoutInflater.from(ctx)
+                .inflate(R.layout.grid_viewholder, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -26,19 +28,26 @@ class MovieAdapter (
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = data.movie[position]
         Glide.with(ctx)
-            .load("https://image.tmdb.org/t/p/w500"+movie.backdrop_path)
-            .override(350,200)
+            .load("https://image.tmdb.org/t/p/w500${if (getItemViewType(position) == 0)  
+                                                                movie.backdrop_path 
+                                                            else 
+                                                                movie.poster_path}")
+            .fitCenter()
             .into(holder.backdrop)
         holder.title.text = movie.title
-    }
-
-    enum class ViewType {
-        LIST,
-        GRID
+        holder.itemView.setOnClickListener {
+            listener?.onClickListener(movie)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (layoutManager?.spanCount == 1) ViewType.LIST.ordinal
-        else ViewType.GRID.ordinal
+        return if (layoutManager?.spanCount == 1) 0
+        else 1
+    }
+
+    var listener: MovieListener? = null
+
+    interface MovieListener {
+        fun  onClickListener(movie: ListMovie.Movie)
     }
 }
