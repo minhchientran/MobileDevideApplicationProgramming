@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.week3_movielist.ListMovie
-import com.example.week4_moviefavorite.ui.movie.*
 import com.example.week4_moviefavourite.R
-import com.example.week4_moviefavourite.ui.movie.MovieInfoActivity
+import com.example.week4_moviefavourite.requestCode
+import com.example.week4_moviefavourite.ui.movie.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
+
+var topRatingList: ListMovie? = null
 
 class DashboardFragment : Fragment() {
 
@@ -24,26 +25,24 @@ class DashboardFragment : Fragment() {
         layoutManager = GridLayoutManager(activity, spanCount)
         root.movie_recyclerview.layoutManager = layoutManager
 
-        var info = convertNestedJsonStringToObject()
-        info.movie.removeAll { it.vote_average < 7 }
-        info.movie.sortWith(compareByDescending {it.vote_average})
+        topRatingList = cloneListMovie(listMovie)
 
-        adapter = activity?.let { MovieAdapter(layoutManager, it, info) }
+        topRatingList!!.movie.removeAll { it.vote_average < 7 }
+        topRatingList!!.movie.sortWith(compareByDescending {it.vote_average})
+        adapter = activity?.let { MovieAdapter(layoutManager, it, topRatingList!!) }
+
         root.movie_recyclerview.adapter = adapter
-
         adapter?.listener = object: MovieAdapter.MovieListener {
             override fun onClickListener(movie: ListMovie.Movie) {
-                adapter?.listener = object: MovieAdapter.MovieListener {
-                    override fun onClickListener(movie: ListMovie.Movie) {
-                        val intent = Intent(activity, MovieInfoActivity::class.java)
-                        val movieInfo = convertNestedObjectToJsonString(movie)
-                        intent.putExtra("MOVIE_INFO", movieInfo)
-                        startActivity(intent)
-                    }
-                }
+                val intent = Intent(activity, MovieInfoActivity::class.java)
+                val movieInfo = convertNestedObjectToJsonString(movie)
+                intent.putExtra("MOVIE_INFO", movieInfo)
+                intent.putExtra("Fragment", "Rating")
+                activity?.startActivityForResult(intent,  requestCode)
             }
         }
 
         return root
     }
+
 }

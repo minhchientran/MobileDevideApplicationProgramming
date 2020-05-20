@@ -1,15 +1,12 @@
-package com.example.week4_moviefavorite.ui.movie
+package com.example.week4_moviefavourite.ui.movie
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.week3_movielist.GridMovieViewHolder
-import com.example.week3_movielist.ListMovie
 import com.example.week3_movielist.ListMovieViewHolder
 import com.example.week3_movielist.MovieViewHolder
 import com.example.week4_moviefavourite.R
@@ -19,14 +16,6 @@ import com.khtn.androidcamp.DataCenter
 var layoutManager: GridLayoutManager? = null
 var adapter: MovieAdapter? = null
 var spanCount = 1;
-
-fun convertNestedJsonStringToObject() : ListMovie {
-    return Gson().fromJson(DataCenter.getMovieJsonString(), ListMovie::class.java)
-}
-
-fun convertNestedObjectToJsonString(movie : ListMovie.Movie): String? {
-    return Gson().toJson(movie)
-}
 
 class MovieAdapter (
     private val layoutManager: GridLayoutManager? = null,

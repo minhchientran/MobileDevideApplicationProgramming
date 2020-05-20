@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.week3_movielist.ListMovie
-import com.example.week4_moviefavorite.ui.movie.*
+import com.example.week4_moviefavourite.ui.movie.*
 import com.example.week4_moviefavourite.R
-import com.example.week4_moviefavourite.ui.movie.MovieInfoActivity
+import com.example.week4_moviefavourite.requestCode
+import com.example.week4_moviefavourite.ui.movie.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 
+var nowPlayingList: ListMovie? = null
 
 class HomeFragment : Fragment() {
 
@@ -23,12 +24,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-
         layoutManager = GridLayoutManager(activity, spanCount)
         root.movie_recyclerview.layoutManager = layoutManager
-        var info = convertNestedJsonStringToObject()
 
-        adapter = activity?.let { MovieAdapter(layoutManager, it, info) }
+        nowPlayingList = cloneListMovie(listMovie)
+
+        adapter = activity?.let { MovieAdapter(layoutManager, it, nowPlayingList!!) }
         root.movie_recyclerview.adapter = adapter
 
         adapter?.listener = object: MovieAdapter.MovieListener {
@@ -36,7 +37,8 @@ class HomeFragment : Fragment() {
                 val intent = Intent(activity, MovieInfoActivity::class.java)
                 val movieInfo = convertNestedObjectToJsonString(movie)
                 intent.putExtra("MOVIE_INFO", movieInfo)
-                startActivity(intent)
+                intent.putExtra("Fragment", "Now")
+                activity?.startActivityForResult(intent,  requestCode)
             }
         }
 

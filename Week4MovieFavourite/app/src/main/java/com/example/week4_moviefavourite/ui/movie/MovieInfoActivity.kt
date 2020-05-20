@@ -1,21 +1,20 @@
 package com.example.week4_moviefavourite.ui.movie
 
-import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.Switch
-import androidx.core.view.setPadding
 import com.bumptech.glide.Glide
-import com.example.week3_movielist.ListMovie
 import com.example.week4_moviefavourite.R
 import com.google.android.material.chip.Chip
-import com.google.gson.Gson
-import com.khtn.androidcamp.DataCenter
 import kotlinx.android.synthetic.main.activity_movie_info.*
 
 class MovieInfoActivity : AppCompatActivity() {
 
+    private var lastStatus = false
+    private var movie : ListMovie.Movie? = null
+    private var frag : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_info)
@@ -23,43 +22,48 @@ class MovieInfoActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val movieInfo = intent.extras?.getString("MOVIE_INFO")
+        frag = intent.extras?.getString("Fragment")
         if (movieInfo != null) {
-            val movie = convertNestedJsonStringToObject(movieInfo)
-            i_title.text = movie.title
-            org_title.text = movie.original_title
+            movie = convertNestedJsonStringToObject(movieInfo)
+            i_title.text = movie?.title
+            org_title.text = movie?.original_title
+            popularity.text = "(${movie?.popularity.toString()} users)"
+            vote_count.text = "(${movie?.vote_count.toString()} votes)"
+            vote_average.text = movie?.vote_average.toString()
+            language.text = movie?.original_language?.let { convertLanguage(it) }
+            overview.text = movie?.overview
+            release_date.text = movie?.release_date
+            adult.isChecked = movie?.adult!!
+            ratingBar.rating = movie?.vote_average?.div(2) as Float
 
-            popularity.text = "(${movie.popularity.toString()} users)"
-            vote_count.text = "(${movie.vote_count.toString()} votes)"
-            vote_average.text = movie.vote_average.toString()
-
-            language.text = convertLanguage(movie.original_language)
-            overview.text = movie.overview
-            release_date.text = movie.release_date
-            adult.isChecked = movie.adult
-
-            ratingBar.rating = movie.vote_average / 2
-
-            for (i in movie.genre_ids.indices) {
-                var chip = LayoutInflater.from(this).inflate(R.layout.chip,null) as Chip
-                chip.text = convertGenreId(movie.genre_ids[i])
+            for (i in movie!!.genre_ids.indices) {
+                val chip = LayoutInflater.from(this).inflate(R.layout.chip,null) as Chip
+                chip.text = convertGenreId(movie!!.genre_ids[i])
                 genre.addView(chip)
             }
 
             Glide.with(this)
-                .load("https://image.tmdb.org/t/p/w500${movie.poster_path}")
+                .load("https://image.tmdb.org/t/p/w500${movie!!.poster_path}")
                 .fitCenter()
                 .into(i_poster)
 
             Glide.with(this)
-                .load("https://image.tmdb.org/t/p/w500${movie.backdrop_path}")
+                .load("https://image.tmdb.org/t/p/w500${movie!!.backdrop_path}")
                 .fitCenter()
                 .into(i_backdrop)
+
+            lastStatus = movie!!.favourite
+            add_favourite.isChecked = lastStatus
         }
 
-    }
+        add_favourite.setOnClickListener {
+            if (add_favourite.isChecked) {
 
-    private fun convertNestedJsonStringToObject(movieInfo: String?): ListMovie.Movie{
-        return Gson().fromJson(movieInfo, ListMovie.Movie::class.java)
+            }
+            else {
+
+            }
+        }
     }
 
     private fun convertLanguage(lang : String) : String {
@@ -97,4 +101,22 @@ class MovieInfoActivity : AppCompatActivity() {
             else -> ""
         }
     }
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        val intent = Intent()
+        val data = Bundle()
+        if (lastStatus != add_favourite.isChecked) {
+            movie?.id?.let {
+                data.putInt("ID", it)
+                data.putString("FRAG", frag)
+                intent.putExtras(data)
+            }
+            setResult(Activity.RESULT_OK, intent)
+        } else {
+            setResult(Activity.RESULT_OK)
+        }
+        finish()
+    }
+
 }

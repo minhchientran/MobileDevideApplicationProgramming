@@ -11,14 +11,28 @@
         android:background="@color/color2"
         tools:context=".MovieInfoActivity">
 
+        <ToggleButton
+            android:id="@+id/add_favourite"
+            android:layout_width="38dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="8dp"
+            android:background="@layout/toggle_custom"
+            android:textOff=" "
+            android:textOn=" "
+            android:translationZ="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/i_title"
+            app:layout_constraintEnd_toEndOf="@+id/i_title"
+            app:layout_constraintTop_toTopOf="@+id/i_title"
+            app:layout_constraintVertical_bias="0.437" />
+
         <TextView
             android:id="@+id/i_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color1"
+            android:padding="5dp"
             android:textColor="@color/white"
             android:textSize="30sp"
-            android:padding="5dp"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="16dp" />
@@ -28,8 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color4"
-            android:textColor="@color/white"
             android:paddingLeft="5dp"
+            android:textColor="@color/white"
             android:textSize="15dp"
             app:layout_constraintTop_toBottomOf="@+id/i_title"
             tools:layout_editor_absoluteX="16dp" />
@@ -115,8 +129,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="56dp"
             android:text="Language: "
-            android:textStyle="bold"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/i_poster"
             app:layout_constraintTop_toBottomOf="@+id/vote_average"
             tools:ignore="MissingConstraints" />
@@ -128,8 +142,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Genre: "
-            android:textStyle="bold"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/i_poster"
             app:layout_constraintTop_toBottomOf="@+id/textView9"
             tools:ignore="MissingConstraints" />
@@ -141,8 +155,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:text="Adult: "
-            android:textStyle="bold"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/i_poster"
             app:layout_constraintTop_toBottomOf="@+id/textView6"
             tools:ignore="MissingConstraints" />
@@ -154,8 +168,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Release date: "
-            android:textStyle="bold"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/i_poster"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
             tools:ignore="MissingConstraints" />
@@ -167,18 +181,20 @@
             android:layout_marginTop="12dp"
             android:paddingHorizontal="10dp"
             android:text="Synopsis"
-            android:textStyle="bold"
             android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/i_poster"
             app:layout_constraintTop_toBottomOf="@+id/button"
             tools:ignore="MissingConstraints" />
+
         <View
             android:id="@+id/bar1"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#c0c0c0"
             android:layout_margin="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView12"/>
+            android:background="#c0c0c0"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/genre"
             android:layout_width="186dp"
@@ -203,13 +219,15 @@
             app:layout_constraintTop_toBottomOf="@+id/bar1"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="0dp" />
+
         <View
             android:id="@+id/bar2"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#c0c0c0"
             android:layout_margin="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/overview"/>
+            android:background="#c0c0c0"
+            app:layout_constraintTop_toBottomOf="@+id/overview" />
+
         <ImageView
             android:id="@+id/i_backdrop"
             android:layout_width="match_parent"
@@ -232,8 +250,8 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="166dp"
-            android:layout_height="43dp"
+            android:layout_width="162dp"
+            android:layout_height="37dp"
             android:layout_marginStart="16dp"
             android:text="WATCH NOW"
             app:layout_constraintStart_toStartOf="@+id/i_poster"

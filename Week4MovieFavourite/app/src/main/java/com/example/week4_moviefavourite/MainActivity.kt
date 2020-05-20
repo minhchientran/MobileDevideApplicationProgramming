@@ -1,16 +1,21 @@
 package com.example.week4_moviefavourite
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.ui.setupWithNavController
-import com.example.week3_movielist.ListMovie
-import com.example.week4_moviefavorite.ui.movie.*
-import com.example.week4_moviefavourite.R
+import com.example.week4_moviefavourite.ui.dashboard.DashboardFragment
+import com.example.week4_moviefavourite.ui.dashboard.topRatingList
+import com.example.week4_moviefavourite.ui.home.nowPlayingList
+import com.example.week4_moviefavourite.ui.movie.*
+import com.example.week4_moviefavourite.ui.notifications.favouriteList
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+
+var requestCode = 123
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,13 +25,10 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
 //        val appBarConfiguration = AppBarConfiguration(setOf(
 //                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.change_layout -> {
@@ -48,4 +50,34 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 123 ) {
+            if (resultCode == Activity.RESULT_OK) {
+                val bundle = data?.extras
+                bundle?.let {
+                    val id = it.getInt("ID")
+                    val frag = it.getString("FRAG")
+                    var movie = listMovie.movie.single { it.id == id }
+                    var index = listMovie.movie.indexOf(movie)
+                    listMovie.movie[index].favourite = !listMovie.movie[index].favourite
+                    when (frag) {
+                        "Now" -> notifyItemChangeFragment(nowPlayingList, id)
+                        "Rating" -> notifyItemChangeFragment(topRatingList, id)
+                        "Favourite" -> notifyItemChangeFragment(favouriteList, id)
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun notifyItemChangeFragment(listMovie: ListMovie?, id : Int) {
+        val movie = listMovie?.movie?.single { it.id == id }!!
+        val index = listMovie?.movie?.indexOf(movie)!!
+        listMovie?.movie!![index].favourite =
+            !(listMovie?.movie!![index].favourite)
+        adapter?.notifyItemChanged(index)
+    }
 }
