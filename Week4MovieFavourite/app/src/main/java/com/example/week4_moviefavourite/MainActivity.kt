@@ -58,13 +58,18 @@ class MainActivity : AppCompatActivity() {
                 bundle?.let {
                     val id = it.getInt("ID")
                     val frag = it.getString("FRAG")
-                    var movie = listMovie.movie.single { it.id == id }
-                    var index = listMovie.movie.indexOf(movie)
+                    val movie = listMovie.movie.single { it.id == id }
+                    val index = listMovie.movie.indexOf(movie)
                     listMovie.movie[index].favourite = !listMovie.movie[index].favourite
                     when (frag) {
                         "Now" -> notifyItemChangeFragment(nowPlayingList, id)
                         "Rating" -> notifyItemChangeFragment(topRatingList, id)
-                        "Favourite" -> notifyItemChangeFragment(favouriteList, id)
+                        "Favourite" -> {
+                            val movie = favouriteList?.movie?.single{ it.id == id }!!
+                            val index = favouriteList?.movie?.indexOf(movie)!!
+                            favouriteList?.movie?.remove(movie)
+                            adapter?.notifyItemRemoved(index)
+                        }
                         else -> {}
                     }
 
@@ -75,9 +80,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun notifyItemChangeFragment(listMovie: ListMovie?, id : Int) {
         val movie = listMovie?.movie?.single { it.id == id }!!
-        val index = listMovie?.movie?.indexOf(movie)!!
-        listMovie?.movie!![index].favourite =
-            !(listMovie?.movie!![index].favourite)
+        val index = listMovie.movie.indexOf(movie)
+        listMovie.movie[index].favourite = !(listMovie.movie[index].favourite)
         adapter?.notifyItemChanged(index)
     }
 }

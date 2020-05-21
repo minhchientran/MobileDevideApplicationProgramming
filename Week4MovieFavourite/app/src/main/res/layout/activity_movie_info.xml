@@ -249,6 +249,8 @@
             app:layout_constraintTop_toBottomOf="@+id/vote_average" />
 
         <Button
+            android:background="@color/color3"
+            android:backgroundTint="@color/color4"
             android:id="@+id/button"
             android:layout_width="162dp"
             android:layout_height="37dp"

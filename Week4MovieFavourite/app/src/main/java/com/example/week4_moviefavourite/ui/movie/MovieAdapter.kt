@@ -62,4 +62,5 @@ class MovieAdapter (
     interface MovieListener {
         fun  onClickListener(movie: ListMovie.Movie)
     }
+
 }
