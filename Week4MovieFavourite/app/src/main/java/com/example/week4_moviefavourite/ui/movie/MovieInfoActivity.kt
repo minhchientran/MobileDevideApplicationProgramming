@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.example.week4_moviefavourite.R
 import com.google.android.material.chip.Chip
@@ -15,10 +16,10 @@ class MovieInfoActivity : AppCompatActivity() {
     private var lastStatus = false
     private var movie : ListMovie.Movie? = null
     private var frag : String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_info)
-
         supportActionBar?.hide()
 
         val movieInfo = intent.extras?.getString("MOVIE_INFO")
@@ -37,7 +38,8 @@ class MovieInfoActivity : AppCompatActivity() {
             ratingBar.rating = movie?.vote_average?.div(2) as Float
 
             for (i in movie!!.genre_ids.indices) {
-                val chip = LayoutInflater.from(this).inflate(R.layout.chip,null) as Chip
+                val chip =
+                    LayoutInflater.from(this).inflate(R.layout.chip,null) as Chip
                 chip.text = convertGenreId(movie!!.genre_ids[i])
                 genre.addView(chip)
             }
@@ -54,14 +56,36 @@ class MovieInfoActivity : AppCompatActivity() {
 
             lastStatus = movie!!.favourite
             add_favourite.isChecked = lastStatus
+            add_favourite.setBackgroundResource( when(add_favourite.isChecked) {
+                true -> R.drawable.favourite_on
+                else -> R.drawable.favourite
+            })
         }
 
         add_favourite.setOnClickListener {
             if (add_favourite.isChecked) {
-
+                AlertDialog.Builder(this)
+                    .setMessage("Add to Favourite ?")
+                    .setPositiveButton("ADD") { _, _ ->
+                        add_favourite.isChecked = true
+                        add_favourite.setBackgroundResource(R.drawable.favourite_on)
+                    }
+                    .setNegativeButton("CANCEL") { _, _ ->
+                        add_favourite.isChecked = true
+                    }
+                    .show()
             }
             else {
-
+                AlertDialog.Builder(this)
+                    .setMessage("Remove from Favourite ?")
+                    .setPositiveButton("REMOVE") { _, _ ->
+                        add_favourite.isChecked = false
+                        add_favourite.setBackgroundResource(R.drawable.favourite)
+                    }
+                    .setNegativeButton("CANCEL") { _, _ ->
+                        add_favourite.isChecked = true
+                    }
+                    .show()
             }
         }
     }
