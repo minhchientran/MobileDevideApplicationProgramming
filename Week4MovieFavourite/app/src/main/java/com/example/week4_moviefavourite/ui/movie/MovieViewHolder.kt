@@ -1,4 +1,4 @@
-package com.example.week3_movielist
+package com.example.week4_moviefavourite.ui.movie
 
 import android.view.View
 import android.widget.ImageView

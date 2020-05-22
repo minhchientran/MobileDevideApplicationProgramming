@@ -1,4 +1,4 @@
-package com.example.week4_moviefavourite.ui.movie
+package com.example.week4_moviefavourite
 
 import android.app.Activity
 import android.content.Intent
@@ -7,7 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
-import com.example.week4_moviefavourite.R
+import com.example.week4_moviefavourite.ui.movie.ListMovie
+import com.example.week4_moviefavourite.ui.movie.convertNestedJsonStringToObject
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_movie_info.*
 
@@ -25,7 +26,10 @@ class MovieInfoActivity : AppCompatActivity() {
         val movieInfo = intent.extras?.getString("MOVIE_INFO")
         frag = intent.extras?.getString("Fragment")
         if (movieInfo != null) {
-            movie = convertNestedJsonStringToObject(movieInfo)
+            movie =
+                convertNestedJsonStringToObject(
+                    movieInfo
+                )
             i_title.text = movie?.title
             org_title.text = movie?.original_title
             popularity.text = "(${movie?.popularity.toString()} users)"

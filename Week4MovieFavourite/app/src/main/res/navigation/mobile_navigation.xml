@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.week4_moviefavourite.ui.home.HomeFragment"
+        android:name="com.example.week4_moviefavourite.ui.fragment.NowPlayingFragment"
         android:label="@string/now_playing"/>
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.week4_moviefavourite.ui.dashboard.DashboardFragment"
+        android:name="com.example.week4_moviefavourite.ui.fragment.TopRatingFragment"
         android:label="@string/top_rating"/>
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.week4_moviefavourite.ui.notifications.NotificationsFragment"
+        android:name="com.example.week4_moviefavourite.ui.fragment.FavouriteFragment"
         android:label="@string/favourite"/>
 </navigation>

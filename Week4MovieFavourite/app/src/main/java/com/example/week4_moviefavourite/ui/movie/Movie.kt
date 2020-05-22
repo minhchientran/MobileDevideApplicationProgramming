@@ -4,10 +4,16 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.khtn.androidcamp.DataCenter
 
-var listMovie = convertNestedJsonStringToObject()
+var listNowPlayingMovie = getNowPlayingMovie()
+var listTopRatingMovie = getTopRateMovie()
+var listFavouriteMovie = ListMovie(ArrayList())
 
-fun convertNestedJsonStringToObject() : ListMovie {
-    return Gson().fromJson(DataCenter.getMovieJsonString(), ListMovie::class.java)
+fun getNowPlayingMovie() : ListMovie {
+    return Gson().fromJson(DataCenter.getNowPlayingMovieJson(), ListMovie::class.java)
+}
+
+fun getTopRateMovie() : ListMovie {
+    return Gson().fromJson(DataCenter.getTopRateMovieJson(), ListMovie::class.java)
 }
 
 fun convertNestedObjectToJsonString(movie : ListMovie.Movie): String {
@@ -16,11 +22,6 @@ fun convertNestedObjectToJsonString(movie : ListMovie.Movie): String {
 
 fun convertNestedJsonStringToObject(movieInfo: String?): ListMovie.Movie {
     return Gson().fromJson(movieInfo, ListMovie.Movie::class.java)
-}
-
-fun cloneListMovie(list : ListMovie) : ListMovie {
-    val jsonString = Gson().toJson(list)
-    return Gson().fromJson(jsonString, ListMovie::class.java)
 }
 
 data class ListMovie (

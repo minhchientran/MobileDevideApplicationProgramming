@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.week3_movielist.GridMovieViewHolder
 import com.example.week3_movielist.ListMovieViewHolder
-import com.example.week3_movielist.MovieViewHolder
 import com.example.week4_moviefavourite.R
-import com.google.gson.Gson
-import com.khtn.androidcamp.DataCenter
 
 var layoutManager: GridLayoutManager? = null
 var adapter: MovieAdapter? = null

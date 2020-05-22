@@ -1,4 +1,4 @@
-package com.example.week4_moviefavourite.ui.notifications
+package com.example.week4_moviefavourite.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.week4_moviefavourite.MovieInfoActivity
 import com.example.week4_moviefavourite.R
 import com.example.week4_moviefavourite.requestCode
 import com.example.week4_moviefavourite.ui.movie.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 
-var favouriteList: ListMovie? = null
-
-class NotificationsFragment : Fragment() {
+class FavouriteFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,10 +24,7 @@ class NotificationsFragment : Fragment() {
         layoutManager = GridLayoutManager(activity, spanCount)
         root.movie_recyclerview.layoutManager = layoutManager
 
-        favouriteList = cloneListMovie(listMovie)
-        favouriteList!!.movie.removeAll { !it.favourite }
-
-        adapter = activity?.let { MovieAdapter(layoutManager, it, favouriteList!!) }
+        adapter = activity?.let { MovieAdapter(layoutManager, it, listFavouriteMovie) }
         root.movie_recyclerview.adapter = adapter
 
         adapter?.listener = object: MovieAdapter.MovieListener {

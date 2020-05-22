@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.week4_moviefavourite.R
+import com.example.week4_moviefavourite.ui.movie.MovieViewHolder
 
 class ListMovieViewHolder(itemView: View) : MovieViewHolder(itemView) {
     override val backdrop: ImageView = itemView.findViewById<ImageView>(R.id.list_backdrop)

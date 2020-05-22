@@ -14,6 +14,7 @@
         tools:layout_editor_absoluteY="0dp" />
     <TextView
         android:layout_marginTop="10dp"
+        android:paddingEnd="60dp"
         android:id="@+id/list_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

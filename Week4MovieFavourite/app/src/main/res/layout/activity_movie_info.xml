@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:background="@color/color1"
             android:padding="5dp"
+            android:paddingRight="50dp"
             android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintTop_toTopOf="parent"
