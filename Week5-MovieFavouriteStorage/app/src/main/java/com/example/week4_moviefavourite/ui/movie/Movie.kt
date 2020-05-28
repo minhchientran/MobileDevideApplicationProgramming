@@ -1,5 +1,9 @@
 package com.example.week4_moviefavourite.ui.movie
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.khtn.androidcamp.DataCenter
@@ -28,8 +32,11 @@ data class ListMovie (
     @SerializedName("results")
     var movie: ArrayList<Movie>
     ) {
+    @Entity(tableName = "movie_table")
+    @TypeConverters(Converters::class)
     class Movie (
-        val id: Int,
+
+        @PrimaryKey(autoGenerate = false) val id: Int,
 
         val popularity: Float,
         val vote_count: Int,
@@ -37,16 +44,23 @@ data class ListMovie (
 
         val poster_path: String,
         val backdrop_path: String,
-
         val title: String,
         val original_title: String,
-
-        val adult: Boolean,
-        val original_language: String,
-        val genre_ids: List<Int>,
         val overview: String,
         val release_date: String,
+        val original_language: String,
 
-        var favourite : Boolean = false
+        val adult: Boolean,
+        var favourite : Boolean = false,
+
+        val genre_ids: List<Int>
     )
+}
+
+class Converters {
+    @TypeConverter
+    fun listToJson(value: List<Int>?) = Gson().toJson(value)!!
+
+    @TypeConverter
+    fun jsonToList(value: String) = Gson().fromJson(value, Array<Int>::class.java).toList()
 }

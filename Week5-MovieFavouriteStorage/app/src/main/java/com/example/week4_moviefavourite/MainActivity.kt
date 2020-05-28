@@ -5,13 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.navOptions
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.week4_moviefavourite.room.AppDatabase
+import com.example.week4_moviefavourite.room.MovieDAO
 import com.example.week4_moviefavourite.ui.movie.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,11 +18,14 @@ var requestCode = 123
 class MainActivity : AppCompatActivity() {
 
     var state : Int = 0
+    lateinit var dao: MovieDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
+        initRoomDatabase()
+        getMovieFromDatabase()
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
 //        val appBarConfiguration = AppBarConfiguration(setOf(
@@ -41,31 +41,23 @@ class MainActivity : AppCompatActivity() {
             else ->  R.id.navigation_home
         })
         navView.setOnNavigationItemSelectedListener {
-            val prefEditor = sharedPreferences.edit()
             when (it.itemId) {
                 R.id.navigation_home -> {
                     state = 0
-                    prefEditor.putInt("STATE", state)
-                    prefEditor.apply()
                     navController.navigate(R.id.navigation_home)
-                    true
                 }
                 R.id.navigation_dashboard -> {
                     state = 1
-                    prefEditor.putInt("STATE", state)
-                    prefEditor.apply()
                     navController.navigate(R.id.navigation_dashboard)
-                    true
                 }
                 R.id.navigation_notifications -> {
                     state = 2
-                    prefEditor.putInt("STATE", state)
-                    prefEditor.apply()
                     navController.navigate(R.id.navigation_notifications)
-                    true
                 }
-                else -> false
+                else -> {}
             }
+            sharedPreferences.edit().putInt("STATE", state).apply()
+            true
         }
 
         topAppBar.setOnMenuItemClickListener { menuItem ->
@@ -98,43 +90,67 @@ class MainActivity : AppCompatActivity() {
                     val id = it.getInt("ID")
                     when (it.getString("FRAG")) {
                         "Now" -> {
-                            val movie = listNowPlayingMovie.movie.single { it.id == id }
+                            val movie =
+                                listNowPlayingMovie.movie.single { it.id == id }
                             val index = listNowPlayingMovie.movie.indexOf(movie)
                             val status = listNowPlayingMovie.movie[index].favourite
                             listNowPlayingMovie.movie[index].favourite = !status
                             adapter?.notifyItemChanged(index)
                             when (status) {
-                                true -> listFavouriteMovie.movie.remove(movie)
-                                else -> listFavouriteMovie.movie.add(movie)
+                                true -> {
+                                    val movieFR =
+                                        listFavouriteMovie.movie.single { it.id == id }
+                                    val indexFR = listFavouriteMovie.movie.indexOf(movieFR)
+                                    listFavouriteMovie.movie.removeAt(indexFR)
+                                    dao.delete(movie)
+                                }
+                                else -> {
+                                    listFavouriteMovie.movie.add(movie)
+                                    dao.insert(movie)
+                                }
                             }
                         }
                         "Rating" -> {
-                            val movie = listTopRatingMovie.movie.single { it.id == id }
+                            val movie =
+                                listTopRatingMovie.movie.single { it.id == id }
                             val index = listTopRatingMovie.movie.indexOf(movie)
                             val status = listTopRatingMovie.movie[index].favourite
                             listTopRatingMovie.movie[index].favourite = !status
-                            adapter?.notifyItemChanged(index)
                             when (status) {
-                                true -> listFavouriteMovie.movie.remove(movie)
-                                else -> listFavouriteMovie.movie.add(movie)
+                                true -> {
+                                    val movieFR =
+                                        listFavouriteMovie.movie.single { it.id == id }
+                                    val indexFR = listFavouriteMovie.movie.indexOf(movieFR)
+                                    listFavouriteMovie.movie.removeAt(indexFR)
+                                    dao.delete(movie)
+                                }
+                                else -> {
+                                    listFavouriteMovie.movie.add(movie)
+                                    dao.insert(movie)
+                                }
                             }
+                            adapter?.notifyItemChanged(index)
                         }
                         else -> {
-                            val movie = listFavouriteMovie.movie.single{ it.id == id }
+                            val movie =
+                                listFavouriteMovie.movie.single{ it.id == id }
                             var index = listFavouriteMovie.movie.indexOf(movie)
+                            dao.delete(listFavouriteMovie.movie[index])
                             listFavouriteMovie.movie.remove(movie)
                             adapter?.notifyItemRemoved(index)
 
-                            val movieNP  = listNowPlayingMovie.movie.singleOrNull{ it.id == id }
+                            val movieNP  =
+                                listNowPlayingMovie.movie.singleOrNull{ it.id == id }
                             movieNP?.let {
-                                index = listNowPlayingMovie.movie.indexOf(movie)
+                                index = listNowPlayingMovie.movie.indexOf(movieNP)
                                 listNowPlayingMovie.movie[index].favourite =
                                     !(listNowPlayingMovie.movie[index].favourite)
                             }
 
-                            val movieTR = listTopRatingMovie.movie.singleOrNull{ it.id == id }
+                            val movieTR =
+                                listTopRatingMovie.movie.singleOrNull{ it.id == id }
                             movieTR?.let {
-                                index = listTopRatingMovie.movie.indexOf(movie)
+                                index = listTopRatingMovie.movie.indexOf(movieTR)
                                 listTopRatingMovie.movie[index].favourite =
                                     !(listTopRatingMovie.movie[index].favourite)
                             }
@@ -148,5 +164,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         finish()
+    }
+
+    private fun initRoomDatabase() {
+        val db = AppDatabase.invoke(this)
+        dao = db.movieDAO()
+    }
+
+    private fun getMovieFromDatabase() {
+        val students = dao.getAll() // get Students from ROOM database
+        listFavouriteMovie.movie.addAll(students) // add to student list
+        for (movie in listFavouriteMovie.movie) {
+            val movieNP = listNowPlayingMovie.movie.singleOrNull{ it.id == movie.id }
+            movieNP?.let {
+                val index = listNowPlayingMovie.movie.indexOf(movieNP)
+                listNowPlayingMovie.movie[index].favourite = true
+            }
+
+            val movieTR = listTopRatingMovie.movie.singleOrNull{ it.id == movie.id }
+            movieTR?.let {
+                val index = listTopRatingMovie.movie.indexOf(movieTR)
+                listTopRatingMovie.movie[index].favourite = true
+            }
+        }
+        adapter?.notifyDataSetChanged() // notify data changed
     }
 }
