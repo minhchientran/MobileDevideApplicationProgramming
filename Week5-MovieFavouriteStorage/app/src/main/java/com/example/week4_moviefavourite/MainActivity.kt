@@ -17,8 +17,8 @@ var requestCode = 123
 
 class MainActivity : AppCompatActivity() {
 
-    var state : Int = 0
-    lateinit var dao: MovieDAO
+    private var state : Int = 0
+    private lateinit var dao: MovieDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.change_layout -> {
                     if (layoutManager?.spanCount == 1) {
-                        spanCount = 3;
+                        spanCount = 3
                         layoutManager?.spanCount = spanCount
                         menuItem.setIcon(R.drawable.ic_view_list_black_24dp)
                     } else {
