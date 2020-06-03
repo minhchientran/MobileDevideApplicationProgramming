@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface MovieApi {
     @GET("movie/top_rated")
-    fun getTopRateMovie() : Call<ListMovie>
+    fun getTopRating() : Call<ListMovie>
 
     @GET("movie/now_playing")
     fun getNowPlaying(): Call<ListMovie>

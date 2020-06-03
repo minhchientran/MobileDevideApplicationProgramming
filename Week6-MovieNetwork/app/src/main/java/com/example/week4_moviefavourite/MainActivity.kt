@@ -38,12 +38,14 @@ class MainActivity : AppCompatActivity() {
 
         initRoomDatabase()
         getMovieFromDatabase()
+        val sharedPreferences = getSharedPreferences("STATE", Context.MODE_PRIVATE)
+        state = sharedPreferences.getInt("STATE", 0)
+        getNowPlayingFromApi()
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
-        val sharedPreferences = getSharedPreferences("STATE", Context.MODE_PRIVATE)
-        state = sharedPreferences.getInt("STATE", 0)
-        getDataFromApi()
+
         navView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {
@@ -82,86 +84,61 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 123 ) {
-            if (resultCode == Activity.RESULT_OK) {
-                val bundle = data?.extras
-                bundle?.let {
-                    val id = it.getInt("ID")
-                    when (it.getString("FRAG")) {
-                        "Now" -> {
-                            val movie =
-                                listNowPlayingMovie.movie.single { it.id == id }
-                            val index = listNowPlayingMovie.movie.indexOf(movie)
-                            val status = listNowPlayingMovie.movie[index].favourite
-                            listNowPlayingMovie.movie[index].favourite = !status
-                            adapter?.notifyItemChanged(index)
-                            when (status) {
-                                true -> {
-                                    val movieFR =
-                                        listFavouriteMovie.movie.single { it.id == id }
-                                    val indexFR = listFavouriteMovie.movie.indexOf(movieFR)
-                                    listFavouriteMovie.movie.removeAt(indexFR)
-                                    dao.delete(movie)
-                                }
-                                else -> {
-                                    listFavouriteMovie.movie.add(movie)
-                                    dao.insert(movie)
-                                }
-                            }
-                        }
-                        "Rating" -> {
-                            val movie =
-                                listTopRatingMovie.movie.single { it.id == id }
-                            val index = listTopRatingMovie.movie.indexOf(movie)
-                            val status = listTopRatingMovie.movie[index].favourite
-                            listTopRatingMovie.movie[index].favourite = !status
-                            when (status) {
-                                true -> {
-                                    val movieFR =
-                                        listFavouriteMovie.movie.single { it.id == id }
-                                    val indexFR = listFavouriteMovie.movie.indexOf(movieFR)
-                                    listFavouriteMovie.movie.removeAt(indexFR)
-                                    dao.delete(movie)
-                                }
-                                else -> {
-                                    listFavouriteMovie.movie.add(movie)
-                                    dao.insert(movie)
-                                }
-                            }
-                            adapter?.notifyItemChanged(index)
-                        }
-                        else -> {
-                            val movie =
-                                listFavouriteMovie.movie.single{ it.id == id }
-                            var index = listFavouriteMovie.movie.indexOf(movie)
-                            dao.delete(listFavouriteMovie.movie[index])
-                            listFavouriteMovie.movie.remove(movie)
-                            adapter?.notifyItemRemoved(index)
+        if (requestCode == 123 && resultCode == Activity.RESULT_OK) {
+            val bundle = data?.extras
+            bundle?.let {
+                val id = it.getInt("ID")
+                when (it.getString("FRAG")) {
+                    "Now" -> changeFavouriteMovie(listNowPlayingMovie, id)
+                    "Rating" -> changeFavouriteMovie(listTopRatingMovie, id)
+                    else -> {
+                        val movie = listFavouriteMovie.movie.single{ it.id == id }
+                        var index = listFavouriteMovie.movie.indexOf(movie)
+                        dao.delete(listFavouriteMovie.movie[index])
+                        listFavouriteMovie.movie.remove(movie)
+                        adapter?.notifyItemRemoved(index)
 
-                            val movieNP  =
-                                listNowPlayingMovie.movie.singleOrNull{ it.id == id }
-                            movieNP?.let {
-                                index = listNowPlayingMovie.movie.indexOf(movieNP)
-                                listNowPlayingMovie.movie[index].favourite =
-                                    !(listNowPlayingMovie.movie[index].favourite)
-                            }
+                        val movieNP =
+                            listNowPlayingMovie.movie.singleOrNull{ it.id == id }
+                        movieNP?.let {
+                            index = listNowPlayingMovie.movie.indexOf(movieNP)
+                            listNowPlayingMovie.movie[index].favourite =
+                                !(listNowPlayingMovie.movie[index].favourite)
+                        }
 
-                            val movieTR =
-                                listTopRatingMovie.movie.singleOrNull{ it.id == id }
-                            movieTR?.let {
-                                index = listTopRatingMovie.movie.indexOf(movieTR)
-                                listTopRatingMovie.movie[index].favourite =
-                                    !(listTopRatingMovie.movie[index].favourite)
-                            }
+                        val movieTR =
+                            listTopRatingMovie.movie.singleOrNull{ it.id == id }
+                        movieTR?.let {
+                            index = listTopRatingMovie.movie.indexOf(movieTR)
+                            listTopRatingMovie.movie[index].favourite =
+                                !(listTopRatingMovie.movie[index].favourite)
                         }
                     }
-
                 }
+            }
+        }
+    }
+
+    private fun changeFavouriteMovie(listMovie: ListMovie, id: Int) {
+        val movie = listMovie.movie.single { it.id == id }
+        val index = listMovie.movie.indexOf(movie)
+        val status = listMovie.movie[index].favourite
+        listMovie.movie[index].favourite = !status
+        adapter?.notifyItemChanged(index)
+        when (status) {
+            true -> {
+                val movieFR = listFavouriteMovie.movie.single { it.id == id }
+                val indexFR = listFavouriteMovie.movie.indexOf(movieFR)
+                listFavouriteMovie.movie.removeAt(indexFR)
+                dao.delete(movie)
+            }
+            else -> {
+                listFavouriteMovie.movie.add(movie)
+                dao.insert(movie)
             }
         }
     }
@@ -178,60 +155,53 @@ class MainActivity : AppCompatActivity() {
     private fun getMovieFromDatabase() {
         val students = dao.getAll() // get Students from ROOM database
         listFavouriteMovie.movie.addAll(students) // add to student list
-//        adapter?.notifyDataSetChanged()
     }
 
-    private fun getDataFromApi(){
+    private fun getNowPlayingFromApi() {
         MovieService.getInstance().getApi().getNowPlaying().enqueue(object : Callback<ListMovie> {
             override fun onFailure(call: Call<ListMovie>?, t: Throwable?) {
             }
-
-            override fun onResponse(
-                call: Call<ListMovie>?,
-                response: Response<ListMovie>?
-            ) {
+            override fun onResponse(call: Call<ListMovie>?, response: Response<ListMovie>?) {
                 response?.let {
                     val resp = it.body()
                     listNowPlayingMovie = resp
-
                 }
-                MovieService.getInstance().getApi().getTopRateMovie().enqueue(object : Callback<ListMovie> {
-                    override fun onFailure(call: Call<ListMovie>?, t: Throwable?) {
-                    }
-
-                    override fun onResponse(
-                        call: Call<ListMovie>?,
-                        response: Response<ListMovie>?
-                    ) {
-                        response?.let {
-                            val resp = it.body()
-                            listTopRatingMovie = resp
-                        }
-                        for (movie in listFavouriteMovie.movie) {
-                            val movieNP = listNowPlayingMovie.movie.singleOrNull{ it.id == movie.id }
-                            movieNP?.let {
-                                val index = listNowPlayingMovie.movie.indexOf(movieNP)
-                                listNowPlayingMovie.movie[index].favourite = true
-                            }
-
-                            val movieTR = listTopRatingMovie.movie.singleOrNull{ it.id == movie.id }
-                            movieTR?.let {
-                                val index = listTopRatingMovie.movie.indexOf(movieTR)
-                                listTopRatingMovie.movie[index].favourite = true
-                            }
-                        }
-                        adapter?.notifyDataSetChanged()
-                        navController.navigate( when (state) {
-                            0 -> R.id.navigation_home
-                            1 -> R.id.navigation_dashboard
-                            2 -> R.id.navigation_notifications
-                            else ->  R.id.navigation_home
-                        })
-                    }
-
-                })
+                getTopRatingFromApi()
             }
         })
 
+    }
+
+    private fun getTopRatingFromApi() {
+        MovieService.getInstance().getApi().getTopRating().enqueue(object : Callback<ListMovie> {
+            override fun onFailure(call: Call<ListMovie>?, t: Throwable?) {
+            }
+            override fun onResponse(call: Call<ListMovie>?, response: Response<ListMovie>?) {
+                response?.let {
+                    val resp = it.body()
+                    listTopRatingMovie = resp
+                }
+                for (movie in listFavouriteMovie.movie) {
+                    setFavouriteOn(listNowPlayingMovie, movie)
+                    setFavouriteOn(listTopRatingMovie, movie)
+                }
+                adapter?.notifyDataSetChanged()
+                navController.navigate( when (state) {
+                    0 -> R.id.navigation_home
+                    1 -> R.id.navigation_dashboard
+                    2 -> R.id.navigation_notifications
+                    else ->  R.id.navigation_home
+                })
+            }
+
+        })
+    }
+
+    private fun setFavouriteOn(listMovie: ListMovie, movie: ListMovie.Movie) {
+        val movieF = listMovie.movie.singleOrNull{ it.id == movie.id }
+        movieF?.let {
+            val index = listMovie.movie.indexOf(movieF)
+            listMovie.movie[index].favourite = true
+        }
     }
 }
