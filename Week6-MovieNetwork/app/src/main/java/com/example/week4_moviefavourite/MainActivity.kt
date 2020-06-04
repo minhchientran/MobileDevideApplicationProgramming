@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
         getMovieFromDatabase()
         val sharedPreferences = getSharedPreferences("STATE", Context.MODE_PRIVATE)
         state = sharedPreferences.getInt("STATE", 0)
-        getNowPlayingFromApi()
-
+        getNowPlayingFromApi(null, 1)
+        getTopRatingFromApi({ setFavouriteAll() }, 1)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
@@ -157,43 +157,50 @@ class MainActivity : AppCompatActivity() {
         listFavouriteMovie.movie.addAll(students) // add to student list
     }
 
-    private fun getNowPlayingFromApi() {
-        MovieService.getInstance().getApi().getNowPlaying().enqueue(object : Callback<ListMovie> {
+    private fun getNowPlayingFromApi(func : (() ->  Unit)?, page : Int) {
+        MovieService.getInstance().getApi().getNowPlaying(page).enqueue(object : Callback<ListMovie> {
             override fun onFailure(call: Call<ListMovie>?, t: Throwable?) {
             }
             override fun onResponse(call: Call<ListMovie>?, response: Response<ListMovie>?) {
                 response?.let {
                     val resp = it.body()
-                    listNowPlayingMovie = resp
+                    listNowPlayingMovie.movie.addAll(resp.movie)
                 }
-                getTopRatingFromApi()
+                if (func != null) {
+                    func()
+                }
             }
         })
-
     }
 
-    private fun getTopRatingFromApi() {
-        MovieService.getInstance().getApi().getTopRating().enqueue(object : Callback<ListMovie> {
+    private fun getTopRatingFromApi(func : (() ->  Unit)?, page : Int) {
+        MovieService.getInstance().getApi().getTopRating(page).enqueue(object : Callback<ListMovie> {
             override fun onFailure(call: Call<ListMovie>?, t: Throwable?) {
             }
             override fun onResponse(call: Call<ListMovie>?, response: Response<ListMovie>?) {
                 response?.let {
                     val resp = it.body()
-                    listTopRatingMovie = resp
+                    listTopRatingMovie.movie.addAll(resp.movie)
                 }
-                for (movie in listFavouriteMovie.movie) {
-                    setFavouriteOn(listNowPlayingMovie, movie)
-                    setFavouriteOn(listTopRatingMovie, movie)
+                if (func != null) {
+                    func()
                 }
-                adapter?.notifyDataSetChanged()
-                navController.navigate( when (state) {
-                    0 -> R.id.navigation_home
-                    1 -> R.id.navigation_dashboard
-                    2 -> R.id.navigation_notifications
-                    else ->  R.id.navigation_home
-                })
-            }
 
+            }
+        })
+    }
+
+    private fun setFavouriteAll() {
+        for (movie in listFavouriteMovie.movie) {
+            setFavouriteOn(listNowPlayingMovie, movie)
+            setFavouriteOn(listTopRatingMovie, movie)
+        }
+        adapter?.notifyDataSetChanged()
+        navController.navigate( when (state) {
+            0 -> R.id.navigation_home
+            1 -> R.id.navigation_dashboard
+            2 -> R.id.navigation_notifications
+            else ->  R.id.navigation_home
         })
     }
 
@@ -204,4 +211,23 @@ class MainActivity : AppCompatActivity() {
             listMovie.movie[index].favourite = true
         }
     }
+
+//    private fun load(i: Int)
+//    {
+//        val call: Call<List> = api.getData(0)
+//        call.enqueue(object : Callback<List>
+//        {
+//            override fun onResponse(call: Call<List>?, response: Response<List>?)
+//            {
+//                if(response!!.isSuccessful)
+//                {
+//                    list.addAll(response!!.body())
+//                    adapter.notifyDataSetChanged()
+//                }
+//            }
+//            override fun onFailure(call: Call<List>?, t: Throwable?)
+//            {
+//            }
+//        })
+//    }
 }
