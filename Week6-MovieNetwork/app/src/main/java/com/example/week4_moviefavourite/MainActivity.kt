@@ -7,13 +7,18 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.week4_moviefavourite.room.AppDatabase
 import com.example.week4_moviefavourite.room.MovieDAO
 import com.example.week4_moviefavourite.ui.movie.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard.view.*
+import kotlinx.android.synthetic.main.fragment_dashboard.view.movie_recyclerview
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,16 +26,9 @@ import retrofit2.Response
 var requestCode = 123
 
 class MainActivity : AppCompatActivity() {
-    companion object {
-        var listNowPlayingMovie = ListMovie(ArrayList())
-        var listTopRatingMovie = ListMovie(ArrayList())
-        var listFavouriteMovie = ListMovie(ArrayList())
-    }
-
     private var state : Int = 0
     private lateinit var dao: MovieDAO
     private lateinit var navController : NavController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -56,11 +54,11 @@ class MainActivity : AppCompatActivity() {
                     state = 1
                     navController.navigate(R.id.navigation_dashboard)
                 }
-                R.id.navigation_notifications -> {
+                else -> {
                     state = 2
                     navController.navigate(R.id.navigation_notifications)
                 }
-                else -> {}
+
             }
             sharedPreferences.edit().putInt("STATE", state).apply()
             true
@@ -84,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -157,39 +156,6 @@ class MainActivity : AppCompatActivity() {
         listFavouriteMovie.movie.addAll(students) // add to student list
     }
 
-    private fun getNowPlayingFromApi(func : (() ->  Unit)?, page : Int) {
-        MovieService.getInstance().getApi().getNowPlaying(page).enqueue(object : Callback<ListMovie> {
-            override fun onFailure(call: Call<ListMovie>?, t: Throwable?) {
-            }
-            override fun onResponse(call: Call<ListMovie>?, response: Response<ListMovie>?) {
-                response?.let {
-                    val resp = it.body()
-                    listNowPlayingMovie.movie.addAll(resp.movie)
-                }
-                if (func != null) {
-                    func()
-                }
-            }
-        })
-    }
-
-    private fun getTopRatingFromApi(func : (() ->  Unit)?, page : Int) {
-        MovieService.getInstance().getApi().getTopRating(page).enqueue(object : Callback<ListMovie> {
-            override fun onFailure(call: Call<ListMovie>?, t: Throwable?) {
-            }
-            override fun onResponse(call: Call<ListMovie>?, response: Response<ListMovie>?) {
-                response?.let {
-                    val resp = it.body()
-                    listTopRatingMovie.movie.addAll(resp.movie)
-                }
-                if (func != null) {
-                    func()
-                }
-
-            }
-        })
-    }
-
     private fun setFavouriteAll() {
         for (movie in listFavouriteMovie.movie) {
             setFavouriteOn(listNowPlayingMovie, movie)
@@ -212,22 +178,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun load(i: Int)
-//    {
-//        val call: Call<List> = api.getData(0)
-//        call.enqueue(object : Callback<List>
-//        {
-//            override fun onResponse(call: Call<List>?, response: Response<List>?)
-//            {
-//                if(response!!.isSuccessful)
-//                {
-//                    list.addAll(response!!.body())
-//                    adapter.notifyDataSetChanged()
-//                }
-//            }
-//            override fun onFailure(call: Call<List>?, t: Throwable?)
-//            {
-//            }
-//        })
-//    }
+
+
 }

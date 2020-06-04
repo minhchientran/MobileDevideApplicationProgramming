@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.week3_movielist.GridMovieViewHolder
@@ -47,6 +48,7 @@ class MovieAdapter (
         holder.itemView.setOnClickListener {
             listener?.onClickListener(movie)
         }
+
     }
 
     override fun getItemViewType(position: Int): Int {

@@ -45,5 +45,4 @@ class AuthInterceptor : Interceptor {
         val finalRequest = request.newBuilder().url(url).build()
         return chain.proceed(finalRequest)
     }
-
 }

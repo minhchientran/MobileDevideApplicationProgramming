@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.week4_moviefavourite.MainActivity
-import com.example.week4_moviefavourite.MovieInfoActivity
-import com.example.week4_moviefavourite.R
-import com.example.week4_moviefavourite.requestCode
+import androidx.recyclerview.widget.RecyclerView
+import com.example.week4_moviefavourite.*
 import com.example.week4_moviefavourite.ui.movie.*
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
+import kotlinx.android.synthetic.main.fragment_dashboard.view.movie_recyclerview
 
 class FavouriteFragment : Fragment() {
 
@@ -25,7 +25,7 @@ class FavouriteFragment : Fragment() {
         layoutManager = GridLayoutManager(activity, spanCount)
         root.movie_recyclerview.layoutManager = layoutManager
 
-        adapter = activity?.let { MovieAdapter(layoutManager, it, MainActivity.listFavouriteMovie) }
+        adapter = activity?.let { MovieAdapter(layoutManager, it, listFavouriteMovie) }
         root.movie_recyclerview.adapter = adapter
 
         adapter?.listener = object: MovieAdapter.MovieListener {
