@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Week4-MovieFavourite</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="top_rating">Top Rating</string>
+    <string name="favourite">Favourite</string>
+    <string name="facebook_app_id">250676506357543</string>
+    <string name="fb_login_protocol_scheme">fb250676506357543</string>
+
+</resources>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1047623263535",
+    "firebase_url": "https://week4-moviefavourite.firebaseio.com",
+    "project_id": "week4-moviefavourite",
+    "storage_bucket": "week4-moviefavourite.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047623263535:android:43cbd18746ad6e4845adda",
+        "android_client_info": {
+          "package_name": "com.example.week4_moviefavourite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047623263535-9fkbdqie54f7e5qmqv3ls5e174vl7rus.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.week4_moviefavourite",
+            "certificate_hash": "3a9ae437781943c0a6328bb3af028833d92d57db"
+          }
+        },
+        {
+          "client_id": "1047623263535-b99jra6skuqqoii7toqh6unlgq2rf70f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2zkeij8nM3LvdDTD3uCj6faGG9pWUoSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047623263535-b99jra6skuqqoii7toqh6unlgq2rf70f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
