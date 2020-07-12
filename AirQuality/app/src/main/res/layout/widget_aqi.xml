@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/widget_background"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:src="@drawable/circle_widget"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/widget_aqi_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/museo_moderno"
+        android:text="@string/aqi_title"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:shadowColor="#E63d3d3d"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"/>
+
+    <TextView
+        android:id="@+id/widget_aqi_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="44sp"
+        android:textStyle="bold"
+        tools:text="123"
+        android:padding="10dp"
+        android:fontFamily="@font/museo_moderno"
+        android:shadowColor="#E63d3d3d"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        />
+
+    <TextView android:id="@+id/widget_air_quality_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/widget_aqi_text"
+        android:layout_centerHorizontal="true"
+        tools:text="Unhealthy"
+        tools:textAllCaps="true"
+        android:elevation="5dp"
+        android:textStyle="bold"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:textColor="@color/scaleGood"
+        android:background="@color/white"
+        android:textSize="18sp"
+        android:fontFamily="@font/museo_moderno"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"/>
+</RelativeLayout>

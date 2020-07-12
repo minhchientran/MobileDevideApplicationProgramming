@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#FF0000</color>
+    <color name="white">#FFF</color>
+    <color name="black">#000</color>
+    <color name="orange">#FF9900</color>
+    <color name="purple">#512DA8</color>
+    <color name="lightPurple">#673AB7</color>
+    <color name="lightestPurple">#6E43D6</color>
+    <color name="transparent">#0FFF</color>
+    <color name="transparentDark">#4000</color>
+    <color name="transparentLight">#4FFF</color>
+    <color name="blue">#284CDC</color>
+    <color name="aqua">#009ba3</color>
+    <color name="lemonYellow">#fff44f</color>
+    <color name="grey">#999</color>
+    <color name="darkGrey">#363636</color>
+    
+
+
+    <!---->
+    <color name="colorPrimary">#49bdff</color>
+    <color name="colorPrimaryDark">#3090fc</color>
+    <color name="colorAccent">#F7BE15</color>
+    <color name="colorPalette1">#1E7C88</color>
+    <color name="colorPalette2">#034B5D</color>
+    <color name="colorPalette3">#A6522B</color>
+    <color name="colorPalette4">#FC9D6F</color>
+    <color name="colorPalette5">#E87A54</color>
+    <color name="colorPalette6">#DA5E3C</color>
+    <color name="colorTransparencyPrimary">#8C3090fc</color>
+    <color name="colorTransparencyPrimaryDark">#8C3090fc</color>
+    <!--Palette Color-->
+    <!--Grape Fruit Color-->
+    <color name="colorGF1">#F76D82</color><color name="colorGF2">#EC5564</color><color name="colorGF3">#D94452</color>
+    <!--Bitter Sweet Color-->
+    <color name="colorBS">#FC8370</color><color name="colorBS2">#FB6D51</color><color name="colorBS3">#E8563F</color>
+    <!--Sunflower Color-->
+    <color name="colorSF1">#FCD277</color><color name="colorSF2">#FECD57</color><color name="colorSF3">#F5BA45</color>
+    <!--Grass Color-->
+    <color name="colorG1">#B4E080</color><color name="colorG2">#9ED36A</color><color name="colorG3">#8AC054</color>
+    <!--Mint Color-->
+    <color name="colorM1">#62DDBD</color><color name="colorM2">#46CEAD</color><color name="colorM3">#35BB9B</color>
+    <!--Aqua Color-->
+    <color name="colorA1">#66d4f1</color><color name="colorA2">#4fc0e8</color><color name="colorA3">#3aadd9</color>
+    <!--Blue Jeans Color-->
+    <color name="colorBJ1">#73B1F4</color><color name="colorBJ2">#5E9CEA</color><color name="colorBJ3">#4B89DA</color>
+    <!--Lavender Color-->
+    <color name="colorL1">#B3A5EF</color><color name="colorL2">#AC92EA</color><color name="colorL3">#967ADA</color>
+    <!--Pink Color-->
+    <color name="colorP1">#F299CE</color><color name="colorP2">#EB87BF</color><color name="colorP3">#D670AC</color>
+    <!--Skin Tone Color-->
+    <color name="colorSK1">#F4D0B5</color><color name="colorSK2">#F0C8A5</color><color name="colorSK3">#E4B693</color>
+    <!--Light Gray Color-->
+    <color name="colorLG1">#F4F6F9</color><color name="colorLG2">#E5E8EC</color><color name="colorLG3">#CBD0D8</color>
+    <!--Dark Gray Color-->
+    <color name="colorDG1">#A9B1BC</color><color name="colorDG2">#646C77</color><color name="colorDG3">#424953</color>
+    <!--AQI Scale Colors-->
+    <color name="colorTransparentWhite">#8CF4F6F9</color>
+    <color name="scaleGood">#4B89DA</color>
+    <color name="scaleModerate">#B3A5EF</color>
+    <color name="scaleUnhealthySensitive">#AC92EA</color>
+    <color name="scaleUnhealthy">#967ADA</color>
+    <color name="scaleVeryUnhealthy">#673AB7</color>
+    <color name="scaleHazardous">#512DA8</color>
+
+    <color name="scaleGood80">#A61c4985</color>
+    <color name="scaleModerate80">#A6605687</color>
+    <color name="scaleUnhealthySensitive80">#A648327a</color>
+    <color name="scaleUnhealthy80">#A63a2275</color>
+    <color name="scaleVeryUnhealthy80">#A633136b</color>
+    <color name="scaleHazardous80">#A6250b63</color>
+</resources>

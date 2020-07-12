@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/viewAboutUs"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:translationZ="3dp"
+        >
+        <include
+            android:id="@+id/about_us"
+            layout="@layout/about_us"
+
+             />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/showAboutUs"
+        android:translationZ="3dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_margin="13dp"
+        android:background="@color/transparentDark"
+        android:onClick="onSlideViewButtonClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="right"
+        app:srcCompat="@drawable/ic_info"
+        android:shadowColor="#E63d3d3d"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="10"/>
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationZ="0dp"
+        android:backgroundTintMode="multiply"
+        android:background="@drawable/tile_background2"
+        />
+
+    <VideoView
+        android:id="@+id/videoView1"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:translationZ="-1dp"
+        android:layout_gravity="center" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:translationZ="2dp"
+        android:fitsSystemWindows="true"
+        android:paddingBottom="10dp">
+
+
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="@color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:overScrollMode="never"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/aqiTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:elevation="2dp"
+                    android:text="@string/aqi_title"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toTopOf="@+id/aqiTextView"
+                    app:layout_constraintEnd_toEndOf="@+id/aqi_background"
+                    app:layout_constraintStart_toStartOf="@+id/aqi_background"
+                    android:shadowColor="#E63d3d3d"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"/>
+
+                <TextView
+                    android:id="@+id/aqiTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/aqiTitle"
+                    android:elevation="2dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/museo_moderno"
+                    android:textSize="50sp"
+                    android:textStyle="bold"
+                    android:transitionName="zoom"
+                    app:layout_constraintBottom_toBottomOf="@+id/aqi_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/aqi_background"
+                    tools:text="123"
+                    android:shadowColor="#E63d3d3d"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"/>
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="120dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/white"
+                    android:elevation="2dp"
+                    app:layout_constraintEnd_toEndOf="@+id/aqi_background"
+                    app:layout_constraintStart_toStartOf="@+id/aqi_background"
+                    app:layout_constraintTop_toBottomOf="@+id/aqiTextView" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:elevation="2dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/aqi_background"
+                    app:layout_constraintStart_toStartOf="@+id/aqi_background"
+                    app:layout_constraintTop_toBottomOf="@+id/view"
+                    tools:ignore="UseCompoundDrawables"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:elevation="2dp"
+                        android:padding="2dp"
+                        android:tint="@color/white"
+                        app:srcCompat="@drawable/icon_thermometer"
+                        tools:ignore="ContentDescription"
+                        android:shadowColor="#E63d3d3d"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:shadowRadius="5"/>
+
+                    <TextView
+                        android:id="@+id/temperatureTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="2dp"
+                        android:text="@string/place_holder"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:shadowColor="#E63d3d3d"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:shadowRadius="5"/>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/aqi_background"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/circle"
+                    tools:ignore="ContentDescription" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/aqi_background"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/icon_location"
+                        android:tint="@color/white"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/locationTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        tools:text="New Delhi" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:overScrollMode="never"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/aqi_color_scale"
+                layout="@layout/aqi_color_scale" />
+
+            <include
+                android:id="@+id/airPropertiesLayout"
+                layout="@layout/layout_air_properties" />
+
+            <TextView
+                android:id="@+id/pollutantsTitleTextView"
+                style="@style/TextAppearanceHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/airPropertiesLayout"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:text="@string/pollutants_aqi"
+                android:textAlignment="textStart"
+                android:padding="5dp"
+                android:background="@color/white"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pollutantsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/pollutantsTitleTextView"
+                android:layout_margin="16dp"
+                android:overScrollMode="never"
+                />
+            <!--
+                        <include
+                            android:id="@+id/rateUsCard"
+                            layout="@layout/layout_rate_us"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/pollutantsRecyclerView"
+                            android:layout_margin="16dp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/attributionTitle"
+                            style="@style/TextAppearanceHeading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/rateUsCard"
+                            android:layout_margin="16dp"
+                            android:text="@string/attribution"
+                            android:enabled="false"
+                            android:textAlignment="textStart" />
+
+                        <TextView
+                            android:id="@+id/attributionTextView"
+                            style="@style/TextAppearance"
+                            android:enabled="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/attributionTitle"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="@string/place_holder"
+                            android:textAlignment="textStart"
+                            android:textSize="14sp" />
+                        -->
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/infoCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:background="@drawable/tile_background"
+        android:shadowColor="#E63d3d3d"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="10">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/museo_moderno"
+            android:text="ABOUT US"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/infoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:padding="5dp"
+            android:fontFamily="@font/montserrat_italic"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal|end"
+            android:text="Hello Users!\nThank you for using our product - AIRBALLOON - The air-quality realtime monitor application.
+\n\nSomething about us, we are a team of VNUHCM-US K16-FETEL students. We are currently the last year students with major of Computer Sciences and Embedded System.
+\n\nThis 'Airballoon' is our final-project in Mobile Application Programming subject. It provides Users with information about air-quality in the location they are staying. We hope you will enjoy it.
+\nThank you a lot!\n"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleText" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/ic_logo1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/subtitle"
+            android:layout_marginBottom="20dp"
+            />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserrat_italic"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:text="Copyright © 2020 - FETEL-HCMUS\nMobile Application Programming Project - K16 MT-HTN Class"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
